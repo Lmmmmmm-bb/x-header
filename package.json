@@ -11,6 +11,7 @@
     "style:watch": "pnpm typed-scss-modules . --watch --ignore \"**/index.scss\""
   },
   "dependencies": {
+    "@douyinfe/semi-icons": "^2.24.3",
     "@douyinfe/semi-ui": "^2.24.3",
     "plasmo": "0.59.3",
     "react": "18.2.0",
