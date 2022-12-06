@@ -1,29 +1,16 @@
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { Button } from '@douyinfe/semi-ui';
 
-const Popup: FC = () => {
-  const [data, setData] = useState('');
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: 16
-      }}
-    >
-      <h2>
-        Welcome to your{' '}
-        <a href='https://www.plasmo.com' target='_blank' rel='noreferrer'>
-          Plasmo
-        </a>{' '}
-        Extension!
-      </h2>
-      <input onChange={(e) => setData(e.target.value)} value={data} />
-      <a href='https://docs.plasmo.com' target='_blank' rel='noreferrer'>
-        View Docs12
-      </a>
-    </div>
-  );
-};
+const Popup: FC = () => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      padding: 16
+    }}
+  >
+    <Button theme='solid'>Hello</Button>
+  </div>
+);
 
 export default Popup;
