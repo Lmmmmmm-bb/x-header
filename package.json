@@ -8,7 +8,7 @@
     "dev": "plasmo dev & pnpm style:watch",
     "build": "plasmo build",
     "package": "plasmo package",
-    "style:watch": "pnpm typed-scss-modules . --watch --ignore \"**/index.scss\""
+    "style:watch": "pnpm typed-scss-modules **/*.module.scss --watch"
   },
   "dependencies": {
     "@douyinfe/semi-icons": "^2.24.3",
