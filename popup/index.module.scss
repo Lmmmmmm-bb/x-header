@@ -7,8 +7,12 @@
     .semi-tabs-bar-left {
       height: 474px;
       width: 96px;
-      overflow-y: auto;
+      overflow-y: hidden;
       overflow-x: hidden;
+
+      &:hover {
+        overflow-y: auto;
+      }
     }
   }
 

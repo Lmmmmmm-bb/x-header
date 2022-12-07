@@ -1,5 +1,5 @@
+import type { FC } from 'react';
 import { nanoid } from 'nanoid';
-import { FC, useState } from 'react';
 import { IconPlus } from '@douyinfe/semi-icons';
 import { useStorage } from '@plasmohq/storage/hook';
 import { Button, TabPane, Tabs } from '@douyinfe/semi-ui';
@@ -10,11 +10,14 @@ import styles from './index.module.scss';
 import { defaultStorage } from './config';
 
 const Popup: FC = () => {
+  const [activeKey, setActiveKey] = useStorage<string>(
+    'active',
+    (v) => v ?? ''
+  );
   const [tabInfo, setTabInfo] = useStorage<TabInfo[]>(
     'info',
     (v) => v ?? defaultStorage
   );
-  const [activeKey, setActiveKey] = useState('1');
 
   const handleTabClose = (key: string) => {
     setTabInfo(tabInfo.filter((item) => item.id !== key));
