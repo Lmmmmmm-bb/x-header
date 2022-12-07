@@ -40,7 +40,12 @@ const Popup: FC = () => {
   // add tab handler
   const handleAddTab = async () => {
     const tabListDOM = document.querySelector('.semi-tabs-bar-left');
-    const newTabInfo = { no: tabInfo.length, id: nanoid(), headers: [] };
+    const newTabInfo = {
+      no: tabInfo.length,
+      id: nanoid(),
+      title: `Tab ${tabInfo.length + 1}`,
+      headers: []
+    };
     await setTabInfo([...tabInfo, newTabInfo]);
     tabListDOM.scrollTo({
       top: tabListDOM.scrollHeight,
@@ -50,16 +55,23 @@ const Popup: FC = () => {
 
   // remove header handler
   const handleRemoveHeader = (tab: TabInfo, header: Header) => {
-    const newTabInfo = tabInfo.map((item) => {
-      if (item.id === tab.id) {
-        return {
-          ...item,
-          headers: item.headers.filter((h) => h !== header)
-        };
-      }
-      return item;
-    });
-    setTabInfo(newTabInfo);
+    setTabInfo(
+      tabInfo.map((item) =>
+        item.id === tab.id
+          ? { ...item, headers: item.headers.filter((h) => h !== header) }
+          : item
+      )
+    );
+  };
+
+  const handleContentEditable = (e: React.FocusEvent<HTMLDivElement>) => {
+    setTabInfo(
+      tabInfo.map((item) =>
+        item.id === activeTabInfo.id
+          ? { ...item, title: e.target.innerText }
+          : item
+      )
+    );
   };
 
   return (
@@ -67,7 +79,14 @@ const Popup: FC = () => {
       <header className={styles.header}>
         {activeTabInfo && (
           <>
-            <Title heading={4}>{activeTabInfo?.id}</Title>
+            <Title
+              contentEditable
+              heading={4}
+              className={styles.title}
+              onBlur={handleContentEditable}
+            >
+              {activeTabInfo.title}
+            </Title>
             <Button theme='borderless' icon={<IconPlus />} />
           </>
         )}

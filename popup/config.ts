@@ -6,6 +6,7 @@ export const defaultStorage: TabInfo[] = Array(3)
   .map((_, index) => ({
     no: index,
     id: nanoid(),
+    title: `Tab ${index + 1}`,
     headers: []
   }));
 

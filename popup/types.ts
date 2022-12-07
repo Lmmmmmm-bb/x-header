@@ -7,5 +7,6 @@ export interface Header {
 export interface TabInfo {
   no: number;
   id: string;
+  title: string;
   headers: Header[];
 }
