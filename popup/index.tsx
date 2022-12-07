@@ -11,7 +11,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
 import { useStorage } from '@plasmohq/storage/hook';
 
 import styles from './index.module.scss';
-import { defaultStorage } from './config';
+import { avatarColors, defaultStorage } from './config';
 import type { Header, TabInfo } from './types';
 import { HeaderEditor, TabHeader } from '../components';
 
@@ -40,7 +40,7 @@ const Popup: FC = () => {
   // add tab handler
   const handleAddTab = async () => {
     const tabListDOM = document.querySelector('.semi-tabs-bar-left');
-    const newTabInfo = { id: nanoid(), headers: [] };
+    const newTabInfo = { no: tabInfo.length, id: nanoid(), headers: [] };
     await setTabInfo([...tabInfo, newTabInfo]);
     tabListDOM.scrollTo({
       top: tabListDOM.scrollHeight,
@@ -90,24 +90,32 @@ const Popup: FC = () => {
         onChange={setActiveKey}
         onTabClose={handleTabClose}
       >
-        {tabInfo.map((item) => (
-          <TabPane
-            closable
-            key={item.id}
-            itemKey={`${item.id}`}
-            tab={<TabHeader>{item.id.at(0)}</TabHeader>}
-          >
-            <CheckboxGroup type='card'>
-              {item.headers.map((header, index) => (
-                <HeaderEditor
-                  key={index}
-                  header={header}
-                  onDelete={() => handleRemoveHeader(item, header)}
-                />
-              ))}
-            </CheckboxGroup>
-          </TabPane>
-        ))}
+        {tabInfo.map((item) => {
+          const { no, id, headers } = item;
+
+          return (
+            <TabPane
+              closable
+              key={id}
+              itemKey={id}
+              tab={
+                <TabHeader color={avatarColors[no % avatarColors.length]}>
+                  {id.at(0)}
+                </TabHeader>
+              }
+            >
+              <CheckboxGroup type='card'>
+                {headers.map((header, index) => (
+                  <HeaderEditor
+                    key={index}
+                    header={header}
+                    onDelete={() => handleRemoveHeader(item, header)}
+                  />
+                ))}
+              </CheckboxGroup>
+            </TabPane>
+          );
+        })}
       </Tabs>
     </div>
   );
