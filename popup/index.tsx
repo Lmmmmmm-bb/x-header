@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { FC, useMemo } from 'react';
-import { IconPlus } from '@douyinfe/semi-icons';
 import { useStorage } from '@plasmohq/storage/hook';
+import { IconPause, IconPlay, IconPlus } from '@douyinfe/semi-icons';
 import { Button, Space, TabPane, Tabs, Typography } from '@douyinfe/semi-ui';
 
 import styles from './index.module.scss';
@@ -12,6 +12,10 @@ import { HeaderEditor, TabHeader } from '../components';
 const { Title } = Typography;
 
 const Popup: FC = () => {
+  const [isPause, setIsPause] = useStorage<boolean>(
+    'isPause',
+    (v) => v ?? false
+  );
   const [activeKey, setActiveKey] = useStorage<string>(
     'active',
     (v) => v ?? ''
@@ -109,13 +113,26 @@ const Popup: FC = () => {
             >
               {activeTabInfo.title}
             </Title>
-            <Button
-              theme='borderless'
-              icon={<IconPlus size='small' />}
-              onClick={handleAddHeader}
-            >
-              Add Header
-            </Button>
+            <Space>
+              <Button
+                theme='borderless'
+                icon={
+                  isPause ? (
+                    <IconPause size='small' />
+                  ) : (
+                    <IconPlay size='small' />
+                  )
+                }
+                onClick={() => setIsPause(!isPause)}
+              />
+              <Button
+                theme='borderless'
+                icon={<IconPlus size='small' />}
+                onClick={handleAddHeader}
+              >
+                Add Header
+              </Button>
+            </Space>
           </>
         )}
       </header>
