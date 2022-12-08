@@ -107,6 +107,7 @@ const Popup: FC = () => {
           <>
             <Title
               contentEditable
+              suppressContentEditableWarning
               heading={4}
               className={styles.title}
               onBlur={handleContentEditable}
