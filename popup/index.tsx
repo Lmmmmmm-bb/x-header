@@ -1,18 +1,12 @@
-import {
-  Button,
-  CheckboxGroup,
-  TabPane,
-  Tabs,
-  Typography
-} from '@douyinfe/semi-ui';
 import { nanoid } from 'nanoid';
 import { FC, useMemo } from 'react';
 import { IconPlus } from '@douyinfe/semi-icons';
 import { useStorage } from '@plasmohq/storage/hook';
+import { Button, Space, TabPane, Tabs, Typography } from '@douyinfe/semi-ui';
 
 import styles from './index.module.scss';
-import { avatarColors, defaultStorage } from './config';
 import type { Header, TabInfo } from './types';
+import { avatarColors, defaultStorage } from './config';
 import { HeaderEditor, TabHeader } from '../components';
 
 const { Title } = Typography;
@@ -47,6 +41,8 @@ const Popup: FC = () => {
       headers: []
     };
     await setTabInfo([...tabInfo, newTabInfo]);
+    // autofocus on new tab
+    setActiveKey(newTabInfo.id);
     tabListDOM.scrollTo({
       top: tabListDOM.scrollHeight,
       behavior: 'smooth'
@@ -64,6 +60,7 @@ const Popup: FC = () => {
     );
   };
 
+  // change tab handler
   const handleContentEditable = (e: React.FocusEvent<HTMLDivElement>) => {
     setTabInfo(
       tabInfo.map((item) =>
@@ -73,6 +70,31 @@ const Popup: FC = () => {
       )
     );
   };
+
+  // add header handler
+  const handleAddHeader = () => {
+    const newHeader: Header = { name: '', value: '', disabled: false };
+    setTabInfo(
+      tabInfo.map((item) =>
+        item.id === activeTabInfo.id
+          ? { ...item, headers: [...item.headers, newHeader] }
+          : item
+      )
+    );
+  };
+
+  // change header handler
+  const handleHeaderChange = (header: Header, index: number) =>
+    setTabInfo(
+      tabInfo.map((item) =>
+        item.id === activeTabInfo.id
+          ? {
+              ...item,
+              headers: item.headers.map((h, i) => (i === index ? header : h))
+            }
+          : item
+      )
+    );
 
   return (
     <div className={styles.wrapper}>
@@ -87,7 +109,13 @@ const Popup: FC = () => {
             >
               {activeTabInfo.title}
             </Title>
-            <Button theme='borderless' icon={<IconPlus />} />
+            <Button
+              theme='borderless'
+              icon={<IconPlus size='small' />}
+              onClick={handleAddHeader}
+            >
+              Add Header
+            </Button>
           </>
         )}
       </header>
@@ -123,15 +151,16 @@ const Popup: FC = () => {
                 </TabHeader>
               }
             >
-              <CheckboxGroup type='card'>
+              <Space vertical className={styles.headerEditorWrapper}>
                 {headers.map((header, index) => (
                   <HeaderEditor
                     key={index}
                     header={header}
+                    onChange={(header) => handleHeaderChange(header, index)}
                     onDelete={() => handleRemoveHeader(item, header)}
                   />
                 ))}
-              </CheckboxGroup>
+              </Space>
             </TabPane>
           );
         })}
