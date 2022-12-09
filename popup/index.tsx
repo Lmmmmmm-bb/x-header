@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useStorage } from '@plasmohq/storage/hook';
 import { IconPause, IconPlay, IconPlus } from '@douyinfe/semi-icons';
 import { Button, Space, TabPane, Tabs, Typography } from '@douyinfe/semi-ui';
@@ -8,10 +8,12 @@ import styles from './index.module.scss';
 import type { Header, TabInfo } from './types';
 import { avatarColors, defaultStorage } from './config';
 import { HeaderEditor, TabHeader } from '../components';
+import { clearDynamicRules, updateDynamicRules } from './utils';
 
 const { Title } = Typography;
 
 const Popup: FC = () => {
+  const [count, setCount] = useStorage<number>('count', (v) => v ?? 16);
   const [isPause, setIsPause] = useStorage<boolean>(
     'isPause',
     (v) => v ?? false
@@ -39,11 +41,12 @@ const Popup: FC = () => {
   const handleAddTab = async () => {
     const tabListDOM = document.querySelector('.semi-tabs-bar-left');
     const newTabInfo = {
-      no: tabInfo.length,
+      no: count + 1,
       id: nanoid(),
-      title: `Tab ${tabInfo.length + 1}`,
+      title: 'New Tab',
       headers: []
     };
+    setCount(count + 1);
     await setTabInfo([...tabInfo, newTabInfo]);
     // autofocus on new tab
     setActiveKey(newTabInfo.id);
@@ -100,6 +103,12 @@ const Popup: FC = () => {
       )
     );
 
+  useEffect(() => {
+    tabInfo && activeTabInfo
+      ? updateDynamicRules(activeTabInfo, tabInfo)
+      : clearDynamicRules(tabInfo);
+  }, [tabInfo, activeTabInfo]);
+
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
@@ -119,9 +128,9 @@ const Popup: FC = () => {
                 theme='borderless'
                 icon={
                   isPause ? (
-                    <IconPause size='small' />
-                  ) : (
                     <IconPlay size='small' />
+                  ) : (
+                    <IconPause size='small' />
                   )
                 }
                 onClick={() => setIsPause(!isPause)}

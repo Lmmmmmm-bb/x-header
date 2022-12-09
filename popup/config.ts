@@ -4,7 +4,7 @@ import type { TabInfo } from './types';
 export const defaultStorage: TabInfo[] = Array(3)
   .fill('')
   .map((_, index) => ({
-    no: index,
+    no: index + 1,
     id: nanoid(),
     title: `Tab ${index + 1}`,
     headers: []
