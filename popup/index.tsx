@@ -104,10 +104,10 @@ const Popup: FC = () => {
     );
 
   useEffect(() => {
-    tabInfo && activeTabInfo
+    tabInfo && activeTabInfo && !isPause
       ? updateDynamicRules(activeTabInfo, count)
       : clearDynamicRules(count);
-  }, [tabInfo, activeTabInfo]);
+  }, [tabInfo, activeTabInfo, isPause]);
 
   return (
     <div className={styles.wrapper}>
