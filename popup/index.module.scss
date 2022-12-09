@@ -39,6 +39,11 @@
     align-items: center;
   }
 
+  .disableWrapper {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   .headerEditorWrapper {
     padding: 8px 0;
   }

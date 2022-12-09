@@ -172,6 +172,7 @@ const Popup: FC = () => {
               closable
               key={id}
               itemKey={id}
+              className={isPause && styles.disableWrapper}
               tab={
                 <TabHeader color={avatarColors[no % avatarColors.length]}>
                   {id.at(0)}
