@@ -105,8 +105,8 @@ const Popup: FC = () => {
 
   useEffect(() => {
     tabInfo && activeTabInfo
-      ? updateDynamicRules(activeTabInfo, tabInfo)
-      : clearDynamicRules(tabInfo);
+      ? updateDynamicRules(activeTabInfo, count)
+      : clearDynamicRules(count);
   }, [tabInfo, activeTabInfo]);
 
   return (

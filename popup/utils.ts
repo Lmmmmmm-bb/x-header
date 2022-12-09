@@ -1,10 +1,17 @@
 import type { TabInfo } from './types';
 
-const resourceTypes = Object.values(chrome.declarativeNetRequest.ResourceType);
+const All_Resource_Types = Object.values(
+  chrome.declarativeNetRequest.ResourceType
+);
 
-export const updateDynamicRules = (activeTab: TabInfo, allTabs: TabInfo[]) => {
+const getAllRulesIds = (count: number) =>
+  Array(count)
+    .fill(0)
+    .map((_, index) => index + 1);
+
+export const updateDynamicRules = (activeTab: TabInfo, count: number) => {
   const activeHeaders = activeTab.headers.filter((h) => !h.disabled);
-  const allRulesIds = allTabs.map((tab) => tab.no);
+  const allRulesIds = getAllRulesIds(count);
 
   chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: allRulesIds,
@@ -21,14 +28,15 @@ export const updateDynamicRules = (activeTab: TabInfo, allTabs: TabInfo[]) => {
             value: header.value
           }))
         },
-        condition: { resourceTypes }
+        condition: { resourceTypes: All_Resource_Types }
       }
     ]
   });
 };
 
-export const clearDynamicRules = (allTabs: TabInfo[]) => {
+export const clearDynamicRules = (count: number) => {
+  const allRulesIds = getAllRulesIds(count);
   chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: allTabs.map((tab) => tab.no)
+    removeRuleIds: allRulesIds
   });
 };
