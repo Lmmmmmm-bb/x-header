@@ -165,7 +165,7 @@ const Popup: FC = () => {
         onTabClose={handleTabClose}
       >
         {tabInfo.map((item) => {
-          const { no, id, headers } = item;
+          const { no, id, title, headers } = item;
 
           return (
             <TabPane
@@ -174,8 +174,11 @@ const Popup: FC = () => {
               itemKey={id}
               className={isPause && styles.disableWrapper}
               tab={
-                <TabHeader color={avatarColors[no % avatarColors.length]}>
-                  {id.at(0)}
+                <TabHeader
+                  title={title}
+                  color={avatarColors[no % avatarColors.length]}
+                >
+                  {no}
                 </TabHeader>
               }
             >
