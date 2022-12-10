@@ -39,7 +39,6 @@ const Popup: FC = () => {
 
   // add tab handler
   const handleAddTab = async () => {
-    const tabListDOM = document.querySelector('.semi-tabs-bar-left');
     const newTabInfo = {
       no: count + 1,
       id: nanoid(),
@@ -49,7 +48,8 @@ const Popup: FC = () => {
     setCount(count + 1);
     await setTabInfo([...tabInfo, newTabInfo]);
     // autofocus on new tab
-    setActiveKey(newTabInfo.id);
+    await setActiveKey(newTabInfo.id);
+    const tabListDOM = document.querySelector('.semi-tabs-bar-left');
     tabListDOM.scrollTo({
       top: tabListDOM.scrollHeight,
       behavior: 'smooth'
