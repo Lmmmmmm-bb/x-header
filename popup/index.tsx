@@ -72,7 +72,7 @@ const Popup: FC = () => {
     setTabInfo(
       tabInfo.map((item) =>
         item.id === activeTabInfo.id
-          ? { ...item, title: e.target.innerText }
+          ? { ...item, title: e.target.innerText || '~' }
           : item
       )
     );
@@ -91,7 +91,7 @@ const Popup: FC = () => {
   };
 
   // change header handler
-  const handleHeaderChange = (header: Header, index: number) =>
+  const handleHeaderChange = (header: Header, index: number) => {
     setTabInfo(
       tabInfo.map((item) =>
         item.id === activeTabInfo.id
@@ -102,6 +102,7 @@ const Popup: FC = () => {
           : item
       )
     );
+  };
 
   useEffect(() => {
     tabInfo && activeTabInfo && !isPause
@@ -118,6 +119,7 @@ const Popup: FC = () => {
               contentEditable
               suppressContentEditableWarning
               heading={4}
+              key={activeTabInfo?.id}
               className={styles.title}
               onBlur={handleContentEditable}
             >
@@ -178,7 +180,7 @@ const Popup: FC = () => {
                   title={title}
                   color={avatarColors[no % avatarColors.length]}
                 >
-                  {no}
+                  {title.at(0).toUpperCase()}
                 </TabHeader>
               }
             >
