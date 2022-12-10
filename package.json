@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@douyinfe/semi-icons": "^2.24.3",
+    "@douyinfe/semi-illustrations": "^2.25.0",
     "@douyinfe/semi-ui": "^2.24.3",
     "@plasmohq/storage": "^0.13.0",
     "nanoid": "^4.0.0",

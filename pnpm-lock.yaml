@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@douyinfe/semi-icons': ^2.24.3
+  '@douyinfe/semi-illustrations': ^2.25.0
   '@douyinfe/semi-ui': ^2.24.3
   '@parcel/transformer-sass': ^2.8.0
   '@plasmohq/prettier-plugin-sort-imports': 3.6.0
@@ -28,6 +29,7 @@ specifiers:
 
 dependencies:
   '@douyinfe/semi-icons': 2.24.3_react@18.2.0
+  '@douyinfe/semi-illustrations': 2.25.0_react@18.2.0
   '@douyinfe/semi-ui': 2.24.3_biqbaboplfbrettd7655fr4n2y
   '@plasmohq/storage': 0.13.0_react@18.2.0
   nanoid: 4.0.0
@@ -359,6 +361,14 @@ packages:
 
   /@douyinfe/semi-illustrations/2.24.3_react@18.2.0:
     resolution: {integrity: sha512-F/GCY2yvZadB2k3CR9v8gxJA8BblE7X1HpZkpmYmsewAAvzsa1c5RyrOtlnufGQGe2c5gSsHVMDKnWCZtbwOug==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@douyinfe/semi-illustrations/2.25.0_react@18.2.0:
+    resolution: {integrity: sha512-xVD1ycLwWYkSB88D9ceEr2PniQ4Ygy7bh5kKetH+OuvLze/RKi7GRi7kN/CSEhfaAgMZJjT6f2+QIvWkWPkG3A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:

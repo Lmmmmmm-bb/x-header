@@ -7,7 +7,7 @@ import { Button, Space, TabPane, Tabs, Typography } from '@douyinfe/semi-ui';
 import styles from './index.module.scss';
 import type { Header, TabInfo } from './types';
 import { avatarColors, defaultStorage } from './config';
-import { HeaderEditor, TabHeader } from '../components';
+import { HeaderEditor, HeaderEmpty, TabHeader } from '../components';
 import { clearDynamicRules, updateDynamicRules } from './utils';
 
 const { Title } = Typography;
@@ -182,16 +182,20 @@ const Popup: FC = () => {
                 </TabHeader>
               }
             >
-              <Space vertical className={styles.headerEditorWrapper}>
-                {headers.map((header, index) => (
-                  <HeaderEditor
-                    key={index}
-                    header={header}
-                    onChange={(header) => handleHeaderChange(header, index)}
-                    onDelete={() => handleRemoveHeader(item, header)}
-                  />
-                ))}
-              </Space>
+              {headers.length ? (
+                <Space vertical className={styles.headerEditorWrapper}>
+                  {headers.map((header, index) => (
+                    <HeaderEditor
+                      key={index}
+                      header={header}
+                      onChange={(header) => handleHeaderChange(header, index)}
+                      onDelete={() => handleRemoveHeader(item, header)}
+                    />
+                  ))}
+                </Space>
+              ) : (
+                <HeaderEmpty onClick={handleAddHeader} />
+              )}
             </TabPane>
           );
         })}
