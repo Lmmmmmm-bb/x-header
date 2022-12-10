@@ -116,6 +116,7 @@ const Popup: FC = () => {
         {activeTabInfo && (
           <>
             <Title
+              underline
               contentEditable
               suppressContentEditableWarning
               heading={4}
