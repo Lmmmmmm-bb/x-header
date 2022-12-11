@@ -1,7 +1,7 @@
 {
   "name": "x-header",
   "displayName": "X header",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A basic Plasmo extension.",
   "author": "_lmmmmmm",
   "scripts": {
